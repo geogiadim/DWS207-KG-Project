@@ -1,0 +1,177 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix supersales: <http://www.semanticweb.org/ontologies/superstore-sales#> .
+@base <http://www.semanticweb.org/ontologies/superstore-sales#> .
+
+<http://www.semanticweb.org/ontologies/superstore-sales#> rdf:type owl:Ontology .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.semanticweb.org/ontologies/superstore-sales#byCustomer
+supersales:byCustomer rdf:type owl:ObjectProperty ;
+                      owl:inverseOf supersales:hasOrder ;
+                      rdfs:domain supersales:Order ;
+                      rdfs:range supersales:Customer .
+
+
+###  http://www.semanticweb.org/ontologies/superstore-sales#hasOrder
+supersales:hasOrder rdf:type owl:ObjectProperty ;
+                    rdfs:subPropertyOf owl:topObjectProperty ;
+                    rdfs:domain supersales:Customer ;
+                    rdfs:range supersales:Order .
+
+
+###  http://www.semanticweb.org/ontologies/superstore-sales#hasShipment
+supersales:hasShipment rdf:type owl:ObjectProperty ;
+                       rdfs:domain supersales:Order ;
+                       rdfs:range supersales:Shipment .
+
+
+###  http://www.semanticweb.org/ontologies/superstore-sales#involvesProduct
+supersales:involvesProduct rdf:type owl:ObjectProperty ;
+                           rdfs:domain supersales:Order ;
+                           rdfs:range supersales:Product .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.semanticweb.org/ontologies/superstore-sales#city
+supersales:city rdf:type owl:DatatypeProperty ;
+                rdfs:subPropertyOf owl:topDataProperty ;
+                rdfs:domain supersales:CustomerAddress ;
+                rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/ontologies/superstore-sales#customerName
+supersales:customerName rdf:type owl:DatatypeProperty ;
+                        rdfs:subPropertyOf owl:topDataProperty ;
+                        rdfs:domain supersales:Customer ;
+                        rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/ontologies/superstore-sales#orderDate
+supersales:orderDate rdf:type owl:DatatypeProperty ;
+                     rdfs:domain supersales:Order ;
+                     rdfs:range xsd:dateTime .
+
+
+###  http://www.semanticweb.org/ontologies/superstore-sales#postalCode
+supersales:postalCode rdf:type owl:DatatypeProperty ;
+                      rdfs:subPropertyOf owl:topDataProperty ;
+                      rdfs:domain supersales:CustomerAddress ;
+                      rdfs:range xsd:integer .
+
+
+###  http://www.semanticweb.org/ontologies/superstore-sales#productName
+supersales:productName rdf:type owl:DatatypeProperty ;
+                       rdfs:domain supersales:Product ;
+                       rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/ontologies/superstore-sales#quantity
+supersales:quantity rdf:type owl:DatatypeProperty ;
+                    rdfs:domain supersales:Order ;
+                    rdfs:range xsd:integer .
+
+
+###  http://www.semanticweb.org/ontologies/superstore-sales#sales
+supersales:sales rdf:type owl:DatatypeProperty ;
+                 rdfs:domain supersales:Order ;
+                 rdfs:range xsd:decimal .
+
+
+###  http://www.semanticweb.org/ontologies/superstore-sales#shipDate
+supersales:shipDate rdf:type owl:DatatypeProperty ;
+                    rdfs:domain supersales:Shipment ;
+                    rdfs:range xsd:dateTime .
+
+
+###  http://www.semanticweb.org/ontologies/superstore-sales#state
+supersales:state rdf:type owl:DatatypeProperty ;
+                 rdfs:subPropertyOf owl:topDataProperty ;
+                 rdfs:domain supersales:CustomerAddress ;
+                 rdfs:range xsd:string .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.semanticweb.org/ontologies/superstore-sales#Customer
+supersales:Customer rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/ontologies/superstore-sales#CustomerAddress
+supersales:CustomerAddress rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/ontologies/superstore-sales#FirstClassShipment
+supersales:FirstClassShipment rdf:type owl:Class ;
+                              rdfs:subClassOf supersales:Shipment .
+
+
+###  http://www.semanticweb.org/ontologies/superstore-sales#Furniture
+supersales:Furniture rdf:type owl:Class ;
+                     rdfs:subClassOf supersales:Product .
+
+
+###  http://www.semanticweb.org/ontologies/superstore-sales#OfficeSupplies
+supersales:OfficeSupplies rdf:type owl:Class ;
+                          rdfs:subClassOf supersales:Product .
+
+
+###  http://www.semanticweb.org/ontologies/superstore-sales#Order
+supersales:Order rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/ontologies/superstore-sales#Product
+supersales:Product rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/ontologies/superstore-sales#SecondClassShipment
+supersales:SecondClassShipment rdf:type owl:Class ;
+                               rdfs:subClassOf supersales:Shipment .
+
+
+###  http://www.semanticweb.org/ontologies/superstore-sales#Shipment
+supersales:Shipment rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/ontologies/superstore-sales#StandardClassShipment
+supersales:StandardClassShipment rdf:type owl:Class ;
+                                 rdfs:subClassOf supersales:Shipment .
+
+
+###  http://www.semanticweb.org/ontologies/superstore-sales#Technology
+supersales:Technology rdf:type owl:Class ;
+                      rdfs:subClassOf supersales:Product .
+
+
+#################################################################
+#    General axioms
+#################################################################
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( supersales:FirstClassShipment
+                supersales:SecondClassShipment
+                supersales:StandardClassShipment
+              )
+] .
+
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( supersales:Furniture
+                supersales:OfficeSupplies
+                supersales:Technology
+              )
+] .
+
+
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
