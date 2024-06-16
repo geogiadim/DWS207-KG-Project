@@ -13,7 +13,7 @@ public class Main {
         GraphDBConnector.insertRDFFileToGraphDB(ontologyPath); // inserts the owl ontology file in the repo
         RMLPipeline.runRMLMapper(mapPath, outputPath); // execute the RML rules and create the output file with the rdf data
         GraphDBConnector.insertRDFFileToGraphDB(outputPath); // inserts the rdf data in the repo
-        SPARQLExecutor sparqlExecutor = new SPARQLExecutor();
-        sparqlExecutor.executePipeline("2011-09-08T00:00:00", "2011-09-15T00:00:00");
+        SPARQLExecutor sparqlExecutor = new SPARQLExecutor(); // initializes the sparql executor
+        sparqlExecutor.executePipeline("2011-09-08T00:00:00", "2011-09-15T00:00:00"); // executes the predefined sparql queries for a given date range
     }
 }
