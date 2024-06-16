@@ -11,6 +11,7 @@ public class SPARQLExecutor {
 
     public void executePipeline(String startDate, String endDate){
         String dateFilter = "     FILTER (?date >= \"" + startDate + "\"^^xsd:dateTime && ?date < \"" + endDate + "\"^^xsd:dateTime)\n";
+        System.out.println("This is the sales analysis for the date range " + startDate + " to " + endDate + ": ");
         totalSales(dateFilter);
         individualSales(dateFilter);
         totalSalesPerProductCategory(dateFilter);
