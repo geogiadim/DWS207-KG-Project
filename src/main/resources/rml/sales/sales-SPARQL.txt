@@ -1,0 +1,81 @@
+# INDIVIDUAL SALES 
+PREFIX supersales: <http://www.semanticweb.org/ontologies/superstore-sales#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?product ?productName ?individualSale WHERE { 
+    ?order a supersales:Order;
+           supersales:orderDate ?date;
+           supersales:involvesProduct ?product.
+    
+    ?product a supersales:Product;
+             supersales:sales ?individualSale;
+             supersales:productName ?productName.
+    
+    FILTER (?date >= "2011-09-08T00:00:00"^^xsd:dateTime && ?date < "2011-09-15T00:00:00"^^xsd:dateTime)
+}
+
+# TOTAL SALES
+PREFIX supersales: <http://www.semanticweb.org/ontologies/superstore-sales#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT (SUM(?individualSale) AS ?totalSales) WHERE { 
+    ?order a supersales:Order;
+           supersales:orderDate ?date;
+           supersales:involvesProduct ?product.
+    
+    ?product a supersales:Product;
+             supersales:sales ?individualSale.
+    
+    FILTER (?date >= "2011-09-08T00:00:00"^^xsd:dateTime && ?date < "2011-09-15T00:00:00"^^xsd:dateTime)
+}
+
+# SALES PER PRODUCT CATEGORY
+PREFIX supersales: <http://www.semanticweb.org/ontologies/superstore-sales#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?category (SUM(?sales) AS ?totalSales) WHERE {
+    ?order a supersales:Order;
+           supersales:orderDate ?date;
+           supersales:involvesProduct ?product.
+    
+    ?product a ?category;
+             supersales:sales ?sales.
+    
+    FILTER (?date >= "2011-09-08T00:00:00"^^xsd:dateTime && ?date < "2011-09-15T00:00:00"^^xsd:dateTime)
+    FILTER (?category IN (supersales:OfficeSupplies, supersales:Technology, supersales:Furniture))
+}
+GROUP BY ?category
+
+# COUNTS PER SHIPMENT CATEGORY
+PREFIX supersales: <http://www.semanticweb.org/ontologies/superstore-sales#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?shipmentClass (COUNT(?shipment) AS ?shipmentCount) WHERE {
+    ?order a supersales:Order;
+           supersales:orderDate ?date;
+           supersales:hasShipment ?shipment.
+    
+    ?shipment a ?shipmentClass.
+    
+    FILTER (?date >= "2011-09-08T00:00:00"^^xsd:dateTime && ?date < "2011-09-15T00:00:00"^^xsd:dateTime)
+    FILTER (?shipmentClass IN (supersales:StandardClassShipment, supersales:FirstClassShipment, supersales:SecondClassShipment))
+}
+GROUP BY ?shipmentClass
+
+# ORDERS COUNT
+PREFIX supersales: <http://www.semanticweb.org/ontologies/superstore-sales#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT (COUNT(DISTINCT ?order) AS ?orderCount) WHERE {
+    ?order a supersales:Order;
+           supersales:orderDate ?date.
+    
+    FILTER (?date >= "2011-09-08T00:00:00"^^xsd:dateTime && ?date < "2011-09-15T00:00:00"^^xsd:dateTime)
+}
+
+
