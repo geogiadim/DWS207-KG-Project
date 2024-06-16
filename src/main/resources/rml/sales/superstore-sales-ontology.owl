@@ -19,6 +19,12 @@ supersales:byCustomer rdf:type owl:ObjectProperty ;
                       rdfs:range supersales:Customer .
 
 
+###  http://www.semanticweb.org/ontologies/superstore-sales#hasAddress
+supersales:hasAddress rdf:type owl:ObjectProperty ;
+                      rdfs:domain supersales:Order ;
+                      rdfs:range supersales:OrderAddress .
+
+
 ###  http://www.semanticweb.org/ontologies/superstore-sales#hasOrder
 supersales:hasOrder rdf:type owl:ObjectProperty ;
                     rdfs:subPropertyOf owl:topObjectProperty ;
@@ -45,7 +51,7 @@ supersales:involvesProduct rdf:type owl:ObjectProperty ;
 ###  http://www.semanticweb.org/ontologies/superstore-sales#city
 supersales:city rdf:type owl:DatatypeProperty ;
                 rdfs:subPropertyOf owl:topDataProperty ;
-                rdfs:domain supersales:CustomerAddress ;
+                rdfs:domain supersales:OrderAddress ;
                 rdfs:range xsd:string .
 
 
@@ -65,7 +71,7 @@ supersales:orderDate rdf:type owl:DatatypeProperty ;
 ###  http://www.semanticweb.org/ontologies/superstore-sales#postalCode
 supersales:postalCode rdf:type owl:DatatypeProperty ;
                       rdfs:subPropertyOf owl:topDataProperty ;
-                      rdfs:domain supersales:CustomerAddress ;
+                      rdfs:domain supersales:OrderAddress ;
                       rdfs:range xsd:integer .
 
 
@@ -77,13 +83,13 @@ supersales:productName rdf:type owl:DatatypeProperty ;
 
 ###  http://www.semanticweb.org/ontologies/superstore-sales#quantity
 supersales:quantity rdf:type owl:DatatypeProperty ;
-                    rdfs:domain supersales:Order ;
+                    rdfs:domain supersales:Product ;
                     rdfs:range xsd:integer .
 
 
 ###  http://www.semanticweb.org/ontologies/superstore-sales#sales
 supersales:sales rdf:type owl:DatatypeProperty ;
-                 rdfs:domain supersales:Order ;
+                 rdfs:domain supersales:Product ;
                  rdfs:range xsd:decimal .
 
 
@@ -96,7 +102,7 @@ supersales:shipDate rdf:type owl:DatatypeProperty ;
 ###  http://www.semanticweb.org/ontologies/superstore-sales#state
 supersales:state rdf:type owl:DatatypeProperty ;
                  rdfs:subPropertyOf owl:topDataProperty ;
-                 rdfs:domain supersales:CustomerAddress ;
+                 rdfs:domain supersales:OrderAddress ;
                  rdfs:range xsd:string .
 
 
@@ -106,10 +112,6 @@ supersales:state rdf:type owl:DatatypeProperty ;
 
 ###  http://www.semanticweb.org/ontologies/superstore-sales#Customer
 supersales:Customer rdf:type owl:Class .
-
-
-###  http://www.semanticweb.org/ontologies/superstore-sales#CustomerAddress
-supersales:CustomerAddress rdf:type owl:Class .
 
 
 ###  http://www.semanticweb.org/ontologies/superstore-sales#FirstClassShipment
@@ -129,6 +131,10 @@ supersales:OfficeSupplies rdf:type owl:Class ;
 
 ###  http://www.semanticweb.org/ontologies/superstore-sales#Order
 supersales:Order rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/ontologies/superstore-sales#OrderAddress
+supersales:OrderAddress rdf:type owl:Class .
 
 
 ###  http://www.semanticweb.org/ontologies/superstore-sales#Product

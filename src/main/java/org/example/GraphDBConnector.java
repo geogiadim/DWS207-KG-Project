@@ -25,11 +25,12 @@ public class GraphDBConnector {
         salesConn = salesRepo.getConnection();
     }
 
-    public static void insertOntologyToGraphDB(String ontologyPath) throws FileNotFoundException {
-        File ontologyFile = new File(ontologyPath);
-        // load a simple ontology from a file
+    public static void insertRDFFileToGraphDB(String rdfFilePath) throws FileNotFoundException {
+        // load an ontology or rdf data from a file
+        File ontologyFile = new File(rdfFilePath);
+        // starts a new transaction with the GraphDB repo
         salesConn.begin();
-        // Read the output file and add its contents to the repository
+        // Read the file and add its contents to the repository
         try (InputStream input = new FileInputStream(ontologyFile)) {
             salesConn.add(input, "", RDFFormat.TURTLE);
         } catch (IOException e) {
@@ -37,7 +38,6 @@ public class GraphDBConnector {
         }
         // Committing the transaction persists the data
         salesConn.commit();
-        salesConn.close();
     }
 
     public static void closeSalesConn(){ salesConn.close(); }

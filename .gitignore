@@ -39,3 +39,4 @@ build/
 
 .env
 .idea
+sales-rdf-data.ttl

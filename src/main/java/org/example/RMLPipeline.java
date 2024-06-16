@@ -37,11 +37,6 @@ public class RMLPipeline {
             // Execute the mapping
             QuadStore result = executor.executeV5(null).get(new NamedNode("rmlmapper://default.store"));
 
-            // Output the result in console
-            //BufferedWriter out = new BufferedWriter(new OutputStreamWriter(System.out));
-            //result.write(out, "turtle");
-            //out.close();
-
             // Output the results in a file
             result.write(outputFile, "turtle");
             outputFile.close();
